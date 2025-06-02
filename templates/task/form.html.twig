@@ -3,10 +3,22 @@
 {% block title %}Formulaire de Tâche{% endblock %}
 
 {% block body %}
-<h1>{{ task is defined ? 'Modifier la tâche' : 'Créer une nouvelle tâche' }}</h1>
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button >{{ task is defined ? 'Mettre à jour' : 'Créer' }}</button>
-{{ form_end(form) }}
-<a href="{{ path('task_index') }}">Retour à la liste</a>
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-6 text-center">
+        {{ task is defined ? 'Modifier la tâche' : 'Créer une nouvelle tâche' }}
+    </h1>
+
+    <div class="max-w-xl mx-auto bg-white rounded shadow p-6">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mt-4">
+                {{ task is defined ? 'Mettre à jour' : 'Créer' }}
+            </button>
+        {{ form_end(form) }}
+    </div>
+
+    <div class="mt-4 text-center">
+        <a href="{{ path('task_index') }}" class="text-blue-600 hover:underline">Retour à la liste</a>
+    </div>
+</div>
 {% endblock %}

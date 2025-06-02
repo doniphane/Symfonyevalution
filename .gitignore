@@ -7,6 +7,8 @@
 /public/bundles/
 /var/
 /vendor/
+
+.env/local
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

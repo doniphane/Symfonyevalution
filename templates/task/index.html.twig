@@ -3,39 +3,45 @@
 {% block title %}Liste des Tâches{% endblock %}
 
 {% block body %}
-<h1>Liste des Tâches</h1>
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-6 text-center">Liste des Tâches</h1>
 
-<a href="{{ path('task_new') }}" >Nouvelle tâche</a>
+    <div class="mb-4 flex justify-end">
+        <a href="{{ path('task_new') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Nouvelle tâche</a>
+    </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Titre</th>
-            <th>Statut</th>
-            <th>Date de création</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.title }}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.createdAt|date('d/m/Y') }}</td>
-                <td>
-                    <a href="{{ path('task_show', {id: task.id}) }}">Voir</a>
-                    <a href="{{ path('task_edit', {id: task.id}) }}" >Modifier</a>
-                    <form method="post" action="{{ path('task_delete', {id: task.id}) }}"" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
-                        <button >Supprimer</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">Aucune tâche enregistrée.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded shadow-md">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="py-2 px-4 text-left font-semibold border-b">Titre</th>
+                    <th class="py-2 px-4 text-left font-semibold border-b">Statut</th>
+                    <th class="py-2 px-4 text-left font-semibold border-b">Date de création</th>
+                    <th class="py-2 px-4 text-center font-semibold border-b">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-2 px-4 border-b">{{ task.title }}</td>
+                        <td class="py-2 px-4 border-b">{{ task.status }}</td>
+                        <td class="py-2 px-4 border-b">{{ task.createdAt|date('d/m/Y') }}</td>
+                        <td class="py-2 px-4 border-b text-center">
+                            <a href="{{ path('task_show', {id: task.id}) }}" class="text-blue-600 hover:underline mr-2">Voir</a>
+                            <a href="{{ path('task_edit', {id: task.id}) }}" class="text-yellow-600 hover:underline mr-2">Modifier</a>
+                            <form method="post" action="{{ path('task_delete', {id: task.id}) }}" class="inline" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                                <button type="submit" class="text-red-600 hover:underline">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="py-4 text-center text-gray-500">Aucune tâche enregistrée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
