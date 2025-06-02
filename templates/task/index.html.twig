@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Tâches{% endblock %}
+
+{% block body %}
+<h1>Liste des Tâches</h1>
+
+<a href="{{ path('task_new') }}" >Nouvelle tâche</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Statut</th>
+            <th>Date de création</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.createdAt|date('d/m/Y') }}</td>
+                <td>
+                    <a href="{{ path('task_show', {id: task.id}) }}">Voir</a>
+                    <a href="{{ path('task_edit', {id: task.id}) }}" >Modifier</a>
+                    <form method="post" action="{{ path('task_delete', {id: task.id}) }}"" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                        <button >Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune tâche enregistrée.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

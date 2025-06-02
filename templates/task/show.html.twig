@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de la Tâche{% endblock %}
+
+{% block body %}
+<h1>{{ task.title }}</h1>
+<p><strong>Description :</strong> {{ task.description }}</p>
+<p><strong>Statut :</strong> {{ task.status }}</p>
+<p><strong>Créée le :</strong> {{ task.createdAt|date('d/m/Y H:i') }}</p>
+<a href="{{ path('task_index') }}">Retour à la liste</a>
+<a href="{{ path('task_edit', {id: task.id}) }}">Modifier</a>
+{% endblock %}

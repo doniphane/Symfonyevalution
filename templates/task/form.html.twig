@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire de Tâche{% endblock %}
+
+{% block body %}
+<h1>{{ task is defined ? 'Modifier la tâche' : 'Créer une nouvelle tâche' }}</h1>
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button >{{ task is defined ? 'Mettre à jour' : 'Créer' }}</button>
+{{ form_end(form) }}
+<a href="{{ path('task_index') }}">Retour à la liste</a>
+{% endblock %}
